@@ -688,7 +688,8 @@ constructor(
                 }
                 serverInfo = ServerInfo(
                     edition = ServerInfo.Edition.fromProto(response.join.serverInfo.edition),
-                    version = serverVersion
+                    version = serverVersion,
+                    region = response.join.serverInfo.region,
                 )
                 joinContinuation?.resumeWith(Result.success(Either.Left(response.join)))
                 joinContinuation = null
@@ -1015,6 +1016,7 @@ enum class ProtocolVersion(val value: Int) {
 class ServerInfo(
     val edition: Edition,
     val version: Semver?,
+    val region: String,
 ) {
     enum class Edition {
         STANDARD,
